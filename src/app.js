@@ -11,12 +11,10 @@ import {StyleProvider} from './core/styles';
 import Picker from './components/Picker';
 
 let container = document.createElement('div');
-document.body.appendChild(container);
-
 const APP = (
     <StyleProvider>
         <Picker/>
     </StyleProvider>
-)
-
+);
+document.body.appendChild(container);
 render(APP, container);

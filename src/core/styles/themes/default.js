@@ -19,8 +19,8 @@ export default {
         primaryColor: BLUE,
         negativeColor: RED,
         positiveColor: GREEN,
-        backgroundColor: GRAY,
+        backgroundColor: LIGHT_GRAY,
         textColor: BLACK,
-        borderColor: LIGHT_GRAY,
+        borderColor: GRAY,
     },
 }

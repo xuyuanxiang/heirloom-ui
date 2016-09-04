@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --content-base public/ --inline --hot --colors"
+    "start": "if-env NODE_ENV=production && npm run release || npm run develop",
+    "develop": "webpack-dev-server --hot --progress --colors --inline --content-base dist/",
+    "prerelease": "rm -rf dist",
+    "release": "webpack --define process.env.NODE_ENV='\"production\"'"
   },
   "repository": {
     "type": "git",

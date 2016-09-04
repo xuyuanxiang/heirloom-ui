@@ -10,9 +10,12 @@ import React, {Component, PropTypes} from 'react';
 
 export const createStyleSheets = (props, context) => {
     const {styleSheets}  = context;
-    const {flexBox, autoPrefix} = styleSheets || {};
+    const {flexBox, autoPrefix, palette} = styleSheets || {};
+    console.debug('palette', palette);
     return autoPrefix({
-        picker: flexBox
+        picker: {
+            backgroundColor: palette.backgroundColor
+        }
     })
 };
 
