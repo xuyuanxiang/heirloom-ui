@@ -50,3 +50,20 @@ let container = document.createElement('div');
 document.body.appendChild(container);
 render(APP, container);
 ```
+
+## Contribution
+
+### Scripts
+
+#### `npm start` 
+
+```
+if-env NODE_ENV=production && npm run start:prod || npm run start:dev
+```
+
+* Start a webpack-dev-server for developing
+
+#### `npm run release`
+
+* Cleans up the output `/dist` folder
+* Babel transform all source codes to the output `/dist` folder
