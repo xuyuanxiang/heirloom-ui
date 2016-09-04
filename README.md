@@ -1,10 +1,17 @@
-/**
- * @name
- * @description
- * @version 1.0.0
- * @author xuyuanxiang
- * @date 16/9/3
- */
+# Heirloom UI
+
+Heirloom UI is a set of React components that implement Shouqianba UI design style. 
+
+
+## Installation
+
+```
+npm install heirloom-ui --save
+```
+
+## Usage
+
+```
 import React from 'react';
 import {render} from 'react-dom';
 import {StyleProvider, StyleSheets, themes, colors} from './core/styles';
@@ -42,3 +49,4 @@ const APP = (
 let container = document.createElement('div');
 document.body.appendChild(container);
 render(APP, container);
+```

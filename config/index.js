@@ -13,7 +13,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var all = {
     entry: './src/app.js',
     output: {
-        path: './dist',
+        path: './public',
         filename: `app.[hash].js`
     },
     module: {
@@ -21,13 +21,6 @@ var all = {
             test: /\.js$/,
             exclude: /node_modules/,
             loader: 'babel',
-            query: {
-                presets: [
-                    "es2015",
-                    "stage-1",
-                    "react"
-                ]
-            }
         }, {
             test: /\.html$/,
             exclude: /node_modules/,

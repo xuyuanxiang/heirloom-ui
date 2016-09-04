@@ -1,0 +1,19 @@
+{
+  "presets": [
+    "es2015",
+    "stage-1",
+    "react"
+  ],
+  "env": {
+    "release": {
+      "plugins": [
+        [
+          "transform-react-remove-prop-types",
+          {
+            "mode": "wrap"
+          }
+        ]
+      ]
+    }
+  }
+}

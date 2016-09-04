@@ -9,9 +9,12 @@
 import {BLUE, GREEN, RED, GRAY, BLACK, LIGHT_GRAY} from '../colors';
 
 export default {
-    base: 14,
-    lineHeight: 1.4,
-    fontFamily: 'PingFangHK-Regular, Microsoft Yahei, WenQuanYi Micro Hei, "Helvetica Neue", Helvetica, Arial, sans-serif;',
+    base: {
+        fontSize: 14,
+        lineHeight: 1.4,
+        color: BLACK,
+        fontFamily: 'PingFangHK-Regular, Microsoft Yahei, WenQuanYi Micro Hei, "Helvetica Neue", Helvetica, Arial, sans-serif;',
+    },
     spacing: {
         paddingHorizontal: 15
     },
