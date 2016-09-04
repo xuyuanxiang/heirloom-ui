@@ -2,10 +2,10 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './src/app.js',
     output: {
-        path: './bin',
-        filename: 'index.[hash].js'
+        path: './public',
+        filename: `app.[hash].js`
     },
     module: {
         loaders: [{
@@ -15,7 +15,7 @@ module.exports = {
             query: {
                 presets: [
                     "es2015",
-                    "stage-3",
+                    "stage-1",
                     "react"
                 ]
             }
@@ -30,19 +30,22 @@ module.exports = {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: "commons",
-            filename: "commons.[hash].js"
-        }),
-        new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            },
-            output: {
-                comments: false
-            }
-        }),
-        new HtmlWebpackPlugin()
+        new HtmlWebpackPlugin({
+            template: __dirname + '/src/index.ejs',
+        })
     ]
 };
+
+/*
+ new webpack.optimize.OccurenceOrderPlugin(),
+ new webpack.optimize.DedupePlugin(),
+ new webpack.DefinePlugin({
+ 'process.env': {
+ NODE_ENV: JSON.stringify('production'),
+ },
+ }),
+ new webpack.optimize.CommonsChunkPlugin({
+ name: "commons",
+ filename: "commons.[hash].js"
+ }),
+ */

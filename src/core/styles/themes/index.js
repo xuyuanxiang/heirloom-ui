@@ -3,6 +3,6 @@
  * @description
  * @version 1.0.0
  * @author xuyuanxiang
- * @date 16/9/3
+ * @date 16/9/4
  */
-export default from './Picker';
+export defaultTheme from './default';
