@@ -13,7 +13,7 @@ import Picker from './components/Picker';
 const {BLUE, GREEN, RED, GRAY, BLACK, LIGHT_GRAY} = colors;
 
 const myTheme = new StyleSheets(themes.defaultTheme, {
-    userAgent: 'all', // autofrefix for all browsers.
+    // userAgent: 'all', // auto prefix for all browsers. default: window.navigator.userAgent
     base: {
         fontSize: 14,
         lineHeight: 1.4,
@@ -35,7 +35,17 @@ const myTheme = new StyleSheets(themes.defaultTheme, {
 
 const APP = (
     <StyleProvider styleSheets={myTheme}>
-        <Picker/>
+        <Picker>
+            <Picker.Column key="year">
+                <Picker.Row key="year_2016" value="2016">2016年</Picker.Row>
+            </Picker.Column>
+            <Picker.Column key="month">
+                <Picker.Row key="month_01" value="01">1月</Picker.Row>
+            </Picker.Column>
+            <Picker.Column key="day">
+                <Picker.Row key="day_01" value="01">1日</Picker.Row>
+            </Picker.Column>
+        </Picker>
     </StyleProvider>
 );
 

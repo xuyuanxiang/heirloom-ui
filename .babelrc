@@ -12,7 +12,8 @@
           {
             "mode": "wrap"
           }
-        ]
+        ],
+        "transform-runtime"
       ]
     }
   }

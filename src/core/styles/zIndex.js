@@ -10,5 +10,6 @@ export default {
     modal: 1100,
     dialogOverlay: 1200,
     dialog: 1300,
-    indicator: 1500
+    indicator: 1500,
+    picker: 1101,
 };
