@@ -7,12 +7,7 @@
   "env": {
     "release": {
       "plugins": [
-        [
-          "transform-react-remove-prop-types",
-          {
-            "mode": "wrap"
-          }
-        ],
+        "transform-react-remove-prop-types",
         "transform-runtime"
       ]
     }
