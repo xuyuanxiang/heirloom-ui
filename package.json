@@ -55,6 +55,7 @@
     "webpack-dev-server": "^1.15.1"
   },
   "peerDependencies": {
+    "lodash": "^4.15.0",
     "iscroll": "^5.2.0",
     "react": "^0.14.8 || ^15.0.0",
     "react-dom": "^0.14.8 || ^15.0.0"
