@@ -78,9 +78,12 @@ if-env NODE_ENV=production && npm run start:prod || npm run start:dev
 * Cleans up the output `/dist` folder
 * Babel transform all source codes to the output `/dist` folder
 
-### `npm run test`
+#### `npm run test`
 
 * Start up JEST engine to run all tests in `__tests__` folder
+
+ + `npm run test:watch`
+ + `npm run test:onlyChanged`
 
 ### Implement a component
 
