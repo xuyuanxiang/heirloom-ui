@@ -11,12 +11,13 @@ import {BLUE, GREEN, RED, GRAY, BLACK, LIGHT_GRAY} from '../colors';
 export default {
     base: {
         fontSize: 14,
-        lineHeight: 1.4,
         color: BLACK,
         fontFamily: 'PingFangHK-Regular, Microsoft Yahei, WenQuanYi Micro Hei, "Helvetica Neue", Helvetica, Arial, sans-serif;',
     },
     spacing: {
-        paddingHorizontal: 15
+        lineHeight: 1.428,
+        letterSpacing: 2,
+        paddingHorizontal: 15,
     },
     palette: {
         primaryColor: BLUE,
