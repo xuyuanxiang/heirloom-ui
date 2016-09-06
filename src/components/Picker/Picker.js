@@ -6,6 +6,7 @@
  * @date 16/9/3
  */
 import React, {Component, PropTypes, Children} from 'react';
+import {merge} from 'lodash';
 
 const createStyleSheets = (props, context) => {
     const {styleSheets}  = context;
@@ -19,39 +20,55 @@ const createStyleSheets = (props, context) => {
         },
         pickerItems: {
             ...flexBox,
-            flexDirection: 'row',
+            justifyContent: 'center',
             padding: 0,
+            fontSize: 24,
+            height: '100%',
+            perspective: 1200,
             WebkitMaskBoxImage: 'linear-gradient(to top, transparent, transparent 5%, white 20%, white 80%, transparent 95%, transparent)'
         },
         pickerItemsCol: {
-            ...flexBox,
-            flex: 1,
-            flexDirection: 'column',
+            maxHeight: '100%',
+            position: 'relative',
             overflow: 'hidden',
             transitionDuration: '300ms',
             transitionTimingFunction: 'ease-out',
+            transformStyle: 'preserve-3d'
         },
         pickerItem: {
-            ...flexBox,
             height: 36,
-            flexWrap: 'nowrap',
-            justifyContent: 'center',
-            alignItems: 'center',
+            lineHeight: '36px',
             whiteSpace: 'nowrap',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
-            color: 'ellipsis',
-            boxSizing: 'border-box'
+            color: '#707274',
+            boxSizing: 'border-box',
+            transformOrigin: 'center center -110px',
+            backfaceVisibility: 'hidden',
+            transitionTimingFunction: 'ease-out',
+            transitionDuration: '300ms'
         }
     })
 };
 
-class PickerRow extends Component {
-
-    constructor(props) {
-        super(props);
-        console.debug('PickerRow: props=', props);
+const getY = (event) => {
+    try {
+        const {clientY, screenY, pageY} = event.nativeEvent.touches[0];
+        return {clientY, screenY, pageY};
+    } catch (e) {
+        return {clientY: 0, screenY: 0, pageY: 0};
     }
+};
+
+const getDistance = (startY, endY) => {
+    try {
+        return endY.clientY - startY.clientY;
+    } catch (e) {
+        return 0;
+    }
+};
+
+class PickerRow extends Component {
 
     static contextTypes = {
         styleSheets: PropTypes.object.isRequired,
@@ -67,15 +84,24 @@ class PickerRow extends Component {
 
     render() {
         const styles = this.context.styleSheets;
+        const {style, children} = this.props;
         return (
-            <div style={styles.pickerItem}>
-                {this.props.children}
+            <div style={merge(styles.pickerItem, style)}>
+                {children}
             </div>
         )
     }
 }
 
 class PickerColumn extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            startY: {pageY: 0, clientY: 0, screenY: 0},
+            endY: {pageY: 0, clientY: 0, screenY: 0}
+        };
+    }
 
     static contextTypes = {
         styleSheets: PropTypes.object.isRequired,
@@ -91,11 +117,52 @@ class PickerColumn extends Component {
         };
     }
 
+    _onTouchStart(event) {
+        this.setState({startY: getY(event)});
+    }
+
+    _onTouchMove(event) {
+        this.setState({endY: getY(event)});
+
+    }
+
+    _onTouchEnd() {
+        setTimeout(()=> {
+            console.debug('distance=', getDistance(this.state.startY, this.state.endY));
+        });
+    }
+
     render() {
         const styles = this.context.styleSheets;
-        return <div style={styles.pickerItemsCol}>
-            {this.props.children}
-        </div>
+        const {style, children} = this.props;
+        const {startY, endY} = this.state;
+        const distance = getDistance(startY, endY);
+        let items = Children.toArray(children);
+        let selectedIdx = 0;
+        let moveIdx = Math.ceil(distance / 36);
+        for (let i = 0; i < items.length; i++) {
+            let child = items[i];
+            if (child.props.selected) {
+                selectedIdx = i;
+            }
+        }
+        return (
+            <div style={styles.pickerItemsCol}
+                 onTouchStart={this._onTouchStart.bind(this)}
+                 onTouchEnd={this._onTouchEnd.bind(this)}
+                 onTouchMove={this._onTouchMove.bind(this)}>
+                {Children.map(children, (it, idx)=> {
+                    let px = (selectedIdx - idx) * 18;
+                    let deg = px;
+                    let style = {transform: `transition-duration: 0ms; transform: translate3d(0px, ${px}px, 0px) rotateX(${deg}deg)`};
+                    return (
+                        <PickerRow key={it.key} value={it.value} style={styles.autoPrefix(style)}>
+                            {it.props.children}
+                        </PickerRow>
+                    )
+                })}
+            </div>
+        )
     }
 }
 
@@ -114,7 +181,7 @@ class Picker extends Component {
 
     getChildContext() {
         return {
-            styleSheets: createStyleSheets(this.props, this.context)
+            styleSheets: merge(this.context.styleSheets, createStyleSheets(this.props, this.context))
         };
     }
 

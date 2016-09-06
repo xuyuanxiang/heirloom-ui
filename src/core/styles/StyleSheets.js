@@ -40,6 +40,6 @@ export default class StyleSheets {
             textSuccess: {
                 color: palette.positiveColor
             }
-        }));
+        }), theme, ...more);
     }
 }

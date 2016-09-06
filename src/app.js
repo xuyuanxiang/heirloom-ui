@@ -32,18 +32,47 @@ const myTheme = new StyleSheets(themes.defaultTheme, {
         borderColor: GRAY,
     },
 });
+const years = ['2016'];
+const selectedYearIdx = 0;
+
+const months = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+while (months.length < 12) {
+    months.push(months.length + 1);
+}
+const selectedMonthIdx = 5;
+
+const days = [];
+while (days.length < 9) {
+    days.push(days.length + 1);
+}
+const selectedDayIdx = 10;
 
 const APP = (
     <StyleProvider styleSheets={myTheme}>
         <Picker>
             <Picker.Column key="year">
-                <Picker.Row key="year_2016" value="2016">2016年</Picker.Row>
+                {years.map((it, idx)=>
+                    <Picker.Row key={`year_${it}`} value={it}
+                                selected={selectedYearIdx === idx}>
+                        {it}年
+                    </Picker.Row>
+                )}
             </Picker.Column>
             <Picker.Column key="month">
-                <Picker.Row key="month_01" value="01">1月</Picker.Row>
+                {months.map((it, idx)=>
+                    <Picker.Row key={`month_${it}`} value={it}
+                                selected={selectedMonthIdx === idx}>
+                        {it}月
+                    </Picker.Row>
+                )}
             </Picker.Column>
             <Picker.Column key="day">
-                <Picker.Row key="day_01" value="01">1日</Picker.Row>
+                {days.map((it, idx)=>
+                    <Picker.Row key={`day_${it}`} value={it}
+                                selected={selectedDayIdx === idx}>
+                        {it}日
+                    </Picker.Row>
+                )}
             </Picker.Column>
         </Picker>
     </StyleProvider>
