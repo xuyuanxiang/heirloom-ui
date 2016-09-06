@@ -20,22 +20,24 @@ class CircleSequenceQueue {
     }
 
     append(item) {
-        const {size, queue} = this;
-        if (this.count > 0 && this.front == this.rear) {
-            return this.count;
+        const {front, rear, count} = this;
+        if (count > 0 && front == rear) {
+            return count;
         }
-        queue[this.rear] = item;
-        this.rear = (this.rear + 1) % size;
-        return ++this.count;
+        const {size, queue} = this;
+        queue[rear] = item;
+        this.rear = (rear + 1) % size;
+        this.count = count + 1;
+        return this.count;
     }
 
     delete() {
         if (this.isEmpty()) {
             return null;
         }
-        const {queue, size} = this;
-        let item = queue[this.front];
-        this.front = (this.front + 1) % size;
+        const {queue, size, front} = this;
+        let item = queue[front];
+        this.front = (front + 1) % size;
         this.count--;
         return item;
     }
