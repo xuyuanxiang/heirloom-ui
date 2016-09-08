@@ -7,6 +7,8 @@
  */
 import React, {Component, PropTypes, Children} from 'react';
 import {merge} from 'lodash';
+import Column from './PickerColumn';
+import Row from './PickerRow';
 
 const createStyleSheets = (props, context) => {
     const {styleSheets}  = context;
@@ -52,6 +54,9 @@ const createStyleSheets = (props, context) => {
 };
 
 class Picker extends Component {
+    static Column = Column;
+    static Row = Row;
+
     static contextTypes = {
         styleSheets: PropTypes.object.isRequired,
     };

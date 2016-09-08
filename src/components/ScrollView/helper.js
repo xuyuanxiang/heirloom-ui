@@ -43,6 +43,16 @@ export const getPosition = (event, direction) => {
 };
 
 export const getDistance = (start, end, direction) => {
+    for (let arg of arguments) {
+        if (typeof arg === 'string') {
+            direction = arg;
+            break;
+        }
+    }
+
+    if (typeof direction !== 'string') {
+        return 0;
+    }
     switch (direction) {
         case "horizontal":
             try {
@@ -57,7 +67,7 @@ export const getDistance = (start, end, direction) => {
                 return 0;
             }
         default:
-            throw new TypeError(`Incorrect value specified for getPosition argument: 'direction'. 
+            throw new TypeError(`Incorrect value specified for getDistance argument: 'direction'. 
                 Expected one of ['horizontal', 'vertical'] but actual value is : ${direction}`);
     }
 };

@@ -7,10 +7,22 @@
  */
 import React, {Component, PropTypes} from 'react';
 import RefreshControl from './RefreshControl';
-import {getPosition, getDistince} from './helper';
-
+import {getPosition, getDistance} from './helper';
+const createStyles = (props, context) => ({
+    scrollView: {
+    },
+    image: {
+        display: 'block',
+        width: '100%',
+        minWidth: '100%',
+    }
+});
 
 class ScrollView extends Component {
+
+    static contextTypes = {
+        styleSheets: PropTypes.object.isRequired,
+    };
 
     static propTypes = {
         direction: PropTypes.oneOf(['horizontal', 'vertical']),
@@ -22,8 +34,7 @@ class ScrollView extends Component {
 
     static defaultProps = {
         direction: 'vertical',
-        distance: 40,
-        refreshControl: RefreshControl
+        distance: 60
     };
 
     constructor(props) {
@@ -32,31 +43,38 @@ class ScrollView extends Component {
         this.state = {
             start: getPosition(direction),
             end: getPosition(direction),
-            distance: getDistince(direction),
+            distance: getDistance(direction),
         }
     }
 
     _onTouchStart(event) {
-        this.setState({startY: getY(event)});
+        console.debug('start', event.nativeEvent);
+        const direction = this.props.direction;
+        this.setState({start: getPosition(event, direction)});
     }
 
     _onTouchMove(event) {
-        this.setState({endY: getY(event)});
+        console.debug('move', event.nativeEvent);
+        const direction = this.props.direction;
+        this.setState({end: getPosition(event, direction)});
 
     }
 
     _onTouchEnd() {
+        console.debug('end');
         setTimeout(()=> {
-            console.debug('distance=', getDistance(this.state.startY, this.state.endY));
+            console.debug('distance=', getDistance(this.state.start, this.state.end, this.props.direction));
         });
     }
 
     render() {
+        const styles = createStyles(this.props, this.context);
+        throw new Error('d');
         return (
-            <div onTouchStart={this._onTouchStart.bind(this)}
+            <div style={styles.scrollView}
+                 onTouchStart={this._onTouchStart.bind(this)}
                  onTouchEnd={this._onTouchEnd.bind(this)}
                  onTouchMove={this._onTouchMove.bind(this)}>
-
             </div>
         )
     }

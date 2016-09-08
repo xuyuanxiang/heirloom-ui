@@ -28,6 +28,9 @@ var all = {
         }, {
             test: /\.less$/,
             loader: "style!css!less"
+        }, {
+            test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+            loader: 'url-loader?limit=10000',
         }]
     },
     plugins: [
@@ -36,6 +39,10 @@ var all = {
             'process.env': {
                 'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
             }
+        }),
+        new webpack.SourceMapDevToolPlugin({
+            test: /\.js$/,
+            exclude: /node_modules/,
         }),
         new HtmlWebpackPlugin({
             template: path.resolve('./src/index.ejs')

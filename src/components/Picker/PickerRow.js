@@ -5,7 +5,7 @@
  * @author xuyuanxiang
  * @date 16/9/6
  */
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 
 class PickerRow extends Component {
 
